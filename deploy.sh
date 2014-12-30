@@ -8,13 +8,14 @@ then
     exit 1
 fi
 
-COMMIT=$(git log -1 HEAD --pretty-format:%H)
+COMMIT=$(git log -1 HEAD --pretty=format:%H)
 SHA=${COMMIT:0:8}
 
 cp -r _site/* deploy
 
 cd deploy
 
-git add --all -q
+git add --all
 git commit -m "generated from $SHA" -q
 git push origin master --force -q
+
