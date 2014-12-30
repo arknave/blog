@@ -1,0 +1,114 @@
+/* TODO: Migrate to Haskell's CSS Pre-processor clay */
+/* The following are all settings for phone, some of which are overridden later for tablet and desktop. */
+body {
+    background-color: #eeeeee;
+    color: black;
+    font-size: 1em;
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+header {
+    border-bottom: 2px solid black;
+    margin-bottom: 1em;
+}
+
+div#logo a {
+    color: black;
+    float: left;
+    font-size: 1em;
+    font-weight: bold;
+    padding-left: .5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav {
+    text-align: right;
+    padding-right: .5em;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: black;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: .5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+footer {
+    border-top: solid 2px black;
+    color: #555555;
+    font-size: 1em;
+    margin-top: 2em;
+    padding: 1em 0 1em 0;
+    text-align: center;
+}
+
+section#content {
+    padding: 1em;
+    max-width: 60em;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+@media all and (min-width: 40em) {
+    #content {
+        font-size: 120%;
+        line-height: 1.5;
+    }
+
+    h2 {
+        font-size: 2.5em;
+    }
+
+    h3 {
+        font-size: 2em;
+    }
+
+    footer {
+        text-align: right;
+    }
+}
+
+@media all and (min-width: 55em) {
+    header {
+        font-size: 1.2em;
+    }
+
+    div#logo a {
+        padding-left: 0;
+    }
+
+    nav {
+        padding-right: 0;
+    }
+
+    #content {
+        font-size: 130%;
+        line-height: 1.7;
+    }
+}
+
+div.info {
+    color: #555555;
+    font-size: 1em;
+    font-style: italic;
+}

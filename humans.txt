@@ -1,0 +1,11 @@
+/* humanstxt.org */
+/* TEAM */
+        Grand Poo-bah: Arnav Sastry
+        Twitter: @arknave
+        From: Austin, TX
+
+/* SITE */
+        Standards: HTML5, CSS3
+        Developed with: Vim
+        Hosted on: Github Pages with a Namecheap domain
+        Software: Hakyll, Git, Github Pages
