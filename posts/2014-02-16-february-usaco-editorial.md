@@ -15,7 +15,8 @@ I see two ways of approaching this problem:
 Create a vector which pairs strings and ints. The string is the word, and the int is the original index. Sort the vector based on the string. Now we can do a binary search for our prefix to find the first word in the dictionary which has our prefix. We can then step over k elements and see if the element we're on is still has the same prefix. 
 
 Code speaks louder than words.
-```
+
+```cpp
 //skipping imports
 int W, N, k;
 vector<pair<string, int> > s;
@@ -59,11 +60,12 @@ int main() {
     }
     return 0;
 }
-
 ```
+
 Let's look at the runtime of this. The first step after reading in the data is sorting. This takes O(WlogW) time, where W is the number of lines. In the worst case, we have 1 character per line, which sets W at 1,000,000. Uh-oh, this is too long!
 
 This can be salvaged by using a O(N) sorting algorithm like radix sort. Which brings us to our next method:
+
 ####The "Trie"d and True Method
 A trie (pronounced "try" to distinguish it from a tree) is a recursive data structure which we can use to solve this problem. We can store the number of elements below a node within each node to easily detect which to descend to.
 
@@ -74,7 +76,7 @@ I'll merge these together since the silver solution will also handle the bronze 
 ####Dynamic Programming
 Our state is the string we're looking at. We then check the four possibilities. Since there are O(N) ways to split a substring and O(N^2) substrings, our code runs in O(N^3) time. I think the code is clearer than any english explanation.
 
-```
+```cpp
 //no imports
 #define MAX_N 105
 #define MOD 2014
@@ -152,7 +154,7 @@ Fairly standard shortest path problem. The first step is to find the shortest pa
 
 Once we do that, we try doubling the cost of each edge on the walk from Farmer John to the barn. We don't need to double any other edges because that doesn't change the length of the shortest path. This lowers the number of edge we have to try and double from 25,000 to 250. After we double each edge, we rerun Dijkstra's algorithm and find the new shortest path. Here's the code:
 
-```
+```cpp
 //skipping imports
 #define INF 250000050
 #define MAX_N 255

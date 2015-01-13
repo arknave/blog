@@ -6,7 +6,7 @@ title: January USACO Editorial
 
 Since the heights can only be between 0 and 100, we can try every range from (0, 17) to (100, 117). There's only 1000 hills and 100 possible ranges for a O(N*M) solution, where M is the maximum height of a hill.
 
-```
+```cpp
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -44,7 +44,7 @@ We know that the cost can fit into an integer, because 1000*100<sup>2</sup> = 10
 ###[Bronze III: Balanced Teams](http://usaco.org/index.php?page=viewproblem2&cpid=378)
 Because the order of the teams doesn't matter, we can fix the first element in the first position. Same backtracking solution as Wormholes from last month.
 
-```
+```cpp
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -97,7 +97,7 @@ We know that if height `h` works, then all heights greater than `h` are valid. L
 
 Sounds great! Now how do we write `f`? Well, let's flood fill from a waypoint and see if we hit every other waypoint. We only extend to a new cell if the height difference is less than `h`. This runs in O(N<sup>2</sup>log(H)) time, hopefully fast enough. Here's the code I submitted: 
 
-```
+```cpp
 #include <iostream>
 #include <fstream>
 #include <cstring>

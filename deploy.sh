@@ -16,6 +16,5 @@ cp -r _site/* deploy
 cd deploy
 
 git add --all
-git commit -m "generated from $SHA" -q
-git push origin master --force -q
-
+git commit -m "generated from $SHA"
+git push origin master

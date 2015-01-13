@@ -6,7 +6,7 @@ title: TopCoder SRM 604 Div. II Editorial
 
 TopCoder uses pretty small limits, so we can brute force this. It takes O(N<sup>2</sup>) to iterate through every pair of strings. We can check if one string is a rearrangement of the other in O(N<sup>2</sup>) again (O(N) to try every possible shift, O(N) to verify the shifted string matches the other one). This results in a O(N^2 * N^2) = **O(N<sup>4</sup>)** solution. I wrote a new method to check if two strings can be rearranged to simplify the code. Here's my solution in C++ (be gentle, still learning):
 
-```
+```cpp
 bool works(string a, string b) {
     if(a.size() != b.size()) return false;
     int N = a.size();
@@ -45,7 +45,7 @@ This problem can be both brute forced and intelligently solved, although the tec
 ####Brute Force
 Since there's only two directions to go, and they don't oppose each other, we can just try every possible point starting from (0, 0). Even though the edge of the board is 1,000,000,000 units away, Fox is tripling the distance he moves at each step. Since 3^20 > 1,000,000,000, he can take a maximum of 20 steps __combined__! This makes it easy to find every location he can land on, as there are less than 400 of them. We can do it with BFS or DFS. Here's a succint brute force solution in Python:
 
-```
+```python
 def dfs(x, y, a, b, step):
     if a > 1000000000 or b > 1000000000:
         return False
@@ -72,7 +72,7 @@ Say `x = 3` and `y = 10`. In trinary, `x = 010` and `y = 101`
 
 Because the result is only 1s and the digits of x and y are never two and also not equal, 3 and 10 is a valid point. Here's some code that uses this method:
 
-```
+```cpp
 int getTrit(int mask, int val) {
   int trit = (val % mask) - (val % (mask / 3));
   while(trit >= 3) trit /= 3;

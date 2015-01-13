@@ -7,7 +7,8 @@ _Crump is a problem I gave to my school's Advanced Computer Programming Class. Y
 This problem was lifted almost directly from the USACO training pages, but I wrote a short backstory to make it harder to search for answers. The problem can be split into two parts, parsing the input and solving the problem efficiently.
 
 ###Parsing the input
-```
+
+```cpp
 #include <iostream>
 #include <fstream>
 #define MAX_N 33

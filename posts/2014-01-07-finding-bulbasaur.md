@@ -38,7 +38,8 @@ I recognized the text "POKEMON RED" in the header, but couldn't make heads or ta
 ###First Pass
 
 To start, I just opened the file and searched for the string "BULBASAUR" in ASCII in the ROM.
-```
+
+```haskell
 import qualified Data.ByteString.Char8 as BS 
 import Data.Char
 
@@ -58,7 +59,7 @@ The 50 characters is arbitrary. `breakSubstring` returns a tuple with two elemen
 ###A Bulbasaur by Any Other Name...
 I'm assuming that whatever encoding that GameFreak uses keeps the letters in alphabetical order. Let's try every possible encoding. 
 
-```
+```haskell
 import qualified Data.ByteString.Char8 as BS 
 import Data.Char
 
@@ -85,7 +86,7 @@ The (`\x -> f x`) is a lambda function. `oneString` takes a string and shifts al
 
 Looks like we found Bulbasaur! Let's figure out what that offset is. With Haskell's `zip` function, we can tie an index to each element of the list, then pare the list down to the non-empty ByteStrings to find our lucky index.
 
-```
+```haskell
 import qualified Data.ByteString.Char8 as BS 
 import Data.Char
 
@@ -97,7 +98,8 @@ allStrings s = map (BS.pack . oneString s) [-65..165]
 
 main = do
     game <- BS.readFile "Pokemon Red.gb"
-    print $ filter (\(_, b) -> b /= BS.empty) . zip [0..] $ map (\x -> BS.take 50 .  snd $ BS.breakSubstring x game) (allStrings "BULBASAUR")
+    print $ filter (\(_, b) -> b /= BS.empty) . zip [0..] $ 
+    map (\x -> BS.take 50 .  snd $ BS.breakSubstring x game) (allStrings "BULBASAUR")
 ```
 
 This returns
@@ -108,7 +110,7 @@ This returns
 
 So it looks like `A` is `128`, or `0x80`. Let's translate the bytes into plain english using our new encoding system.
 
-```
+```haskell
 import qualified Data.ByteString.Char8 as BS 
 import Data.Char
 
@@ -123,18 +125,19 @@ showByteString s = chr $ (ord s) - 128 + 65
 
 main = do
     game <- BS.readFile "Pokemon Red.gb"
-    print $ BS.map showByteString . BS.take 50 . snd $ BS.breakSubstring (BS.pack $ oneString "BULBASAUR" (128-65)) game
+    print $ BS.map showByteString . BS.take 50 . snd $ 
+    BS.breakSubstring (BS.pack $ oneString "BULBASAUR" (128-65)) game
 ```
 
 Which outputs:
 
-```
+```haskell
 "BULBASAUR\DC1VENUSAUR\DC1\DC1TENTACRUELMISSINGNO\169GOLDEEN\DC1\DC1\DC1"
 ```
 
 We did it! We found Bulbasaur! To get the memory offset, let's modify the main function to output the number of bytes before the string "BULBASAUR".
 
-```
+```haskell
 import qualified Data.ByteString.Char8 as BS 
 import Data.Char
 
@@ -149,11 +152,12 @@ showByteString s = chr $ (ord s) - 63
 
 main = do
     game <- BS.readFile "Pokemon Red.gb"
-    print $ BS.length . fst $ BS.breakSubstring (BS.pack $ oneString "BULBASAUR" (128-65)) game
+    print $ BS.length . fst 
+    $ BS.breakSubstring (BS.pack $ oneString "BULBASAUR" (128-65)) game
 ```
 
 Which returns `116750`, or in hex, `0x1C80E`.
 
-However, this results in some new mysteries. Where is Ivysaur, and why is it not between Bulbasaur and Venusaur? Why does Goldeen come after Tentacruel? And what exactly is that mysterious MissingNo? Stay tuned for Part II of Finding Bulbasaur.
+However, this results in some new mysteries. Where is Ivysaur, and why is it not between Bulbasaur and Venusaur? Why does Goldeen come after Tentacruel? We'll answer those questions and more next month.
 
 Find the code here at this gist: https://gist.github.com/arknave/8294686

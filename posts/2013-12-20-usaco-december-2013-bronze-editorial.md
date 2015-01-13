@@ -9,7 +9,7 @@ December brought another rough 4-hour contest. The highlight of the bronze conte
 ###[Bronze I: Record Keeping](http://usaco.org/index.php?page=viewproblem2&cpid=358)
 An important part of parsing strings is _normalization_, where we restructure the input data into a logical, consistent format. This isn't common in contest problems, but the concept is useful here. To check if two groups are the same, we have to normalize the groups and compare them somehow. To do this, I changed a space separated list of three cows into a comma delimited list of three **sorted** cows. This way, we can compare two sets of cows just as we could compare two strings. Here's the sorting and normalization:
 
-```prettyprint lang-cpp
+```cpp
 ifstream fin ("records.in");
 ofstream fout ("records.out");
 int N;
@@ -30,7 +30,7 @@ The delimiter is important, as without it, the three cows `aaa bb c` would be se
 
 There are a few ways to count the most common cow. The first is dumping our normalized strings into a `vector` or `list` and sorting the container. Then we can scan through the sorted list in linear time and find the most common element. Here's that code:
 
-```
+```cpp
 //v is a vector with the normalized strings
 sort(v.begin(), v.end());
 int count = 1, best = 1;
@@ -47,7 +47,7 @@ Overall runtime: O(nlogn) (sort) + O(n) (find max) = **O(nlogn)**
 
 Alternately, we could create a map from strings to ints. The keys are the normalized cow strings, and the values are the number of occurences of each string. Here's a full solution using STL's `map`:
 
-```
+```cpp
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -79,11 +79,12 @@ int main() {
     return 0;
 }
 ```
+
 ###[Bronze II: Baseball](http://usaco.org/index.php?page=viewproblem2&cpid=359)
 
 If you get lucky and use a fast language like C++, brute forcing this problem is possible. We can try every triple of cows O(N<sup>3</sup>) and make sure that the distance from the second cow to the third cow is at least the distance from first to second, but not twice as far from first to second. Here's the full brute force code:
 
-```
+```cpp
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -112,11 +113,11 @@ int main() {
     fout << count << endl;
     return 0;
 }
-
 ```
+
 This shouldn't work. To avoid teetering on the edge of the time limit like this, we should find a more efficient algorithm. Using [binary search](https://en.wikipedia.org/wiki/Binary_search), we can solve this problem in **O(N<sup>2</sup>logN)** time. To do this, let's iterate over every pair of cows. This takes O(N<sup>2</sup>) time. Let's call the first cow a, the second cow b, and the distance between a and b m. We can binary search our cow array for b+m and b+2m. Even if a cow at that position doesn't exist, binary search can tell us where the cow "would be" if it were there. Most languages have some form of built-in binary search. Here's a full solution using the C++ STL `lower_bound` and `upper_bound`.
 
-```
+```cpp
 #include <iostream>
 #include <fstream>
 #include <algorithm>
