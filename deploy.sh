@@ -1,5 +1,7 @@
 #!/bin/bash
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) # http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+
+# taken from http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) 
 
 cd $DIR
 if [ `pwd` != "$DIR" ]
